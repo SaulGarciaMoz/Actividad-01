@@ -35,7 +35,7 @@ void InsertarPaquete(Paquete *&lista, int idx, float pesx, string destinox, stri
 
     new_paquete->siguiente = aux1;
     system("cls");
-    printf("\n--Paquete Agregado Correctamente--");
+    printf("\n--Paquete Agregado Correctamente--\n");
     system("pause");
 }
 
@@ -82,7 +82,7 @@ int main(){
                 string insertOrig;
 
                 printf("Inserte los datos del paquete: ");
-                printf("\nId del Paquete: ");
+                printf("\nID del Paquete: ");
                 cin>>insertId;
                 printf("\nPeso exacto del paquete: ");
                 cin>>insertPes;
