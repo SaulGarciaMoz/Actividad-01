@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stdlib.h>
+#include <fsrteam>
 
 using namespace std;
 
@@ -39,16 +41,54 @@ void InsertarPaquete(Paquete *&lista, int idx, float pesx, string destinox, stri
     system("pause");
 }
 
-void EliminarPaquete(){
+void EliminarPaquete(Paquete *&lista, int elim){
+    Paquete *aux_borrar;
+    Paquete *anterior = NULL;
+    aux_borrar = lista;
 
+    while((aux_borrar != NULL) && (aux_borrar->id != elim)){
+        anterior = aux_borrar;
+        aux_borrar = aux_borrar->siguiente;
+    }
+
+    if(aux_borrar == NULL){
+        cout<<"No existe ese Paquete";
+        system("pause");
+    }else if(anterior == NULL){
+        lista = lista->siguiente;
+        delete aux_borrar;
+        printf("\nPaquete Eliminado con Exito\n");
+        system("pause");
+    }else{
+        anterior->siguiente = aux_borrar->siguiente;
+        delete aux_borrar;
+        printf("\nPaquete Eliminado con Exito\n");
+        system("pause");
+    }
 }
 
-void MostrarPaquete(){
+void MostrarPaquete(Paquete *lista){
+    Paquete *actual = new Paquete();
+    actual = lista;
 
+    while(actual != NULL){
+        cout<<"\nID: "<<actual->id;
+        cout<<"\nPeso: "<<actual->peso;
+        cout<<"\nDestino: "<<actual->destino;
+        cout<<"\nOrigen: "<<actual->origen;
+        cout<<"\n---------------------\n";
+        actual = actual->siguiente;
+    }
 }
 
 void GuardarArchivo(){
-
+    ofstream Archivo;
+    
+    Archivo.open("Paquetes.txt",ios::out);
+    
+    if(Archivo.fail()){
+        
+    }
 }
 
 void RecuperarArchivo(){
@@ -68,12 +108,14 @@ int main(){
     printf("\n3) Mostrar todos los Paquetes");
     printf("\n4) Guardar");
     printf("\n5) Recuperar");
+    printf("\n6) Salir");
     printf("\nSeleccione una opcion: ");
     cin>>opc;
 
 
         switch(opc){
             case 1:
+                {
                 system("cls");
 
                 int insertId;
@@ -91,7 +133,39 @@ int main(){
                 printf("\nOrigen del paqute: ");
                 cin>>insertOrig;
                 InsertarPaquete(lista,insertId,insertPes,insertDes,insertOrig);
+                }
+                break;
+            case 2:
+                system("cls");
+                int eliminar;
+                if(lista == NULL){
+                    printf("La Lista esta vacia, ingrese paquetes primero\n");
+                    system("pause");
+                }else{
+                MostrarPaquete(lista);
+                printf("\nEscriba el ID del paquete que desea eliminar: ");
+                cin>>eliminar;
+                EliminarPaquete(lista,eliminar);
+                }
+                break;
+
+            case 3:
+                system("cls");
+                if(lista == NULL){
+                    printf("La Lista esta vacia, ingrese paquetes primero\n");
+                    system("pause");
+                }else{
+                MostrarPaquete(lista);
+                system("pause");
+                }
+                break;
+            
+            case 4:
+                
+                break;
+
         }
+
     }while(opc < 6);
 
     return 0;
